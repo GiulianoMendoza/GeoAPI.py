@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from typing import Literal
 from app.DependencyInjection import Get_GraphProvider,Get_RouteProvider,Get_TrafficProvider
-from application.queries.Coords import route_offline as q_route
-from application.queries.Coords import route_online as q_route
+from application.queries.Coords import route_offline as q_route_offline
+from application.queries.Coords import route_online as q_route_online
 from application.queries.Coords import route_live  as q_live
 from application.dto.dtoRoute import RouteOut
 from application.UseCase.security.security import auth_guard
@@ -17,7 +17,10 @@ def route_offline(
     provider = Depends(Get_GraphProvider)
 ):
     try:
-        return q_route.handle(provider,from_lat=from_lat, from_lon=from_lon,to_lat=to_lat, to_lon=to_lon,metric=metric)
+        return q_route_offline.handle(provider,
+                                      from_lat=from_lat, from_lon=from_lon,
+                                      to_lat=to_lat, to_lon=to_lon,
+                                      metric=metric)
     except Exception as e:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, str(e))
 
@@ -29,10 +32,10 @@ def route(
     provider = Depends(Get_RouteProvider)
 ):
     try:
-        return q_route.handle(provider,
-                              from_lat=from_lat, from_lon=from_lon,
-                              to_lat=to_lat, to_lon=to_lon,
-                              profile=profile)
+        return q_route_online.handle(provider,
+                                     from_lat=from_lat, from_lon=from_lon,
+                                     to_lat=to_lat, to_lon=to_lon,
+                                     profile=profile)
     except Exception as e:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, str(e))
     
