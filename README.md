@@ -44,7 +44,9 @@ La arquitectura está dividida en capas: **Dominio**, **Aplicación**, **Infraes
      uvicorn --app-dir src app.main:app --reload
 ## Abrí Swagger Docs:
 
-**http://127.0.0.1:8000/docs**
+**http://127.0.0.1:8000/docs (LOCALMENTE)**
+
+**https://geoapi-py.onrender.com/docs (ONLINE)**
 
 ## Endpoints
 
