@@ -10,3 +10,5 @@ services:
     envVars:
       - key: ORS_API_KEY
         sync: false
+      - key: SECRET_KEY
+        sync: false
